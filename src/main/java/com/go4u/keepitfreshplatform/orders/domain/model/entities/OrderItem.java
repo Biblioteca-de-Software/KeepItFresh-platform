@@ -3,6 +3,7 @@ package com.go4u.keepitfreshplatform.orders.domain.model.entities;
 import com.go4u.keepitfreshplatform.orders.domain.model.aggregates.Dish;
 import com.go4u.keepitfreshplatform.orders.domain.model.aggregates.Order;
 import com.go4u.keepitfreshplatform.orders.domain.model.valueobjects.Quantity;
+
 import com.go4u.keepitfreshplatform.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +37,6 @@ public class OrderItem extends AuditableModel {
     @NotNull
     private BigDecimal subtotal;
 
-
     public OrderItem(Order order, Dish dish, Quantity quantity, BigDecimal subtotal) {
         this.order = order;
         this.dish = dish;
@@ -46,5 +46,9 @@ public class OrderItem extends AuditableModel {
 
     public OrderItem() {
 
+    }
+
+    public OrderItem(Order order, Dish dish, Quantity quantity) {
+        super();
     }
 }
