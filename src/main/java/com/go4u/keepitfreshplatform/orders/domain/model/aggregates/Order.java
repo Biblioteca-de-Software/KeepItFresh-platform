@@ -23,6 +23,7 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     private int tableNumber;
 
     @NotNull
+    @Getter
     private Price total;
 
     @Embedded
@@ -50,5 +51,10 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     public void addDishToOrderSummary(Dish dish, Quantity quantity) {
         this.orderSummary.addItem(this, dish, quantity);
     }
+
+    public void setTotal(Price total) {
+        this.total = total;
+    }
+
 
 }

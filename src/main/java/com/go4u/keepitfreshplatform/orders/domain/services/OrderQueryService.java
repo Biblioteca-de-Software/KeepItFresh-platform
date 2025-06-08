@@ -5,6 +5,7 @@ import com.go4u.keepitfreshplatform.orders.domain.model.entities.OrderItem;
 import com.go4u.keepitfreshplatform.orders.domain.model.queries.GetAllOrdersQuery;
 import com.go4u.keepitfreshplatform.orders.domain.model.queries.GetOrderByIdQuery;
 import com.go4u.keepitfreshplatform.orders.domain.model.queries.GetOrderItemByTableQuery;
+import com.go4u.keepitfreshplatform.orders.domain.model.queries.GetOrdersByTableNumberQuery;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +17,8 @@ public interface OrderQueryService {
     List<OrderItem> handle(GetOrderItemByTableQuery query);
 
     Optional<Order> handle(GetOrderByIdQuery query);
+
+    List<Order> handle(GetOrdersByTableNumberQuery query);
+
 
 }
