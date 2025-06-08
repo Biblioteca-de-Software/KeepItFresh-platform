@@ -13,7 +13,7 @@ public interface OrderQueryService {
 
     List<Order> handle(GetAllOrdersQuery query);
 
-    Optional<OrderItem> handle(GetOrderItemByTableQuery query);
+    List<OrderItem> handle(GetOrderItemByTableQuery query);
 
     Optional<Order> handle(GetOrderByIdQuery query);
 

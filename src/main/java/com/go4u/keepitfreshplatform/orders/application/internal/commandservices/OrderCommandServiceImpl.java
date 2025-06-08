@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderCommandServiceImpl implements OrderCommandService {
 
-    private OrderRepository orderRepository;
-    private DishRepository dishRepository;
+    private final OrderRepository orderRepository;
+    private final DishRepository dishRepository;
 
-    public OrderCommandServiceImpl(OrderRepository orderRepository, DishRepository) {
+    public OrderCommandServiceImpl(OrderRepository orderRepository, DishRepository dishRepository) {
         this.orderRepository = orderRepository;
         this.dishRepository = dishRepository;
     }
@@ -36,14 +36,17 @@ public class OrderCommandServiceImpl implements OrderCommandService {
             throw new IllegalArgumentException("Order not found");
         }
 
-        if(!dishRepository.existsById(command.dishId())){
-            throw new IllegalArgumentException("Dish not found");
-        }
+        var dish = dishRepository.findById(command.dishId())
+                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
 
         try{
-            var order = orderRepository.findById(command.orderId());
-            var dish = dishRepository.findById(command.dishId());
-            
+
+            orderRepository.findById(command.orderId()).map(order -> {
+                order.addDishToOrderSummary(dish, command.quantity());
+                orderRepository.save(order);
+                return order;
+            });
+
         } catch (Exception e){
             throw new IllegalArgumentException("Error while saving order" + e.getMessage());
         }

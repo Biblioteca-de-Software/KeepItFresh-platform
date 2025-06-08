@@ -7,22 +7,20 @@ import com.go4u.keepitfreshplatform.orders.domain.model.entities.OrderItem;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Embeddable
+@Getter
 public class OrderSummary {
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
     public OrderSummary() {this.orderItems = new ArrayList<>();}
-
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
-    }
 
     public boolean isEmpty(){return orderItems.isEmpty();}
 
