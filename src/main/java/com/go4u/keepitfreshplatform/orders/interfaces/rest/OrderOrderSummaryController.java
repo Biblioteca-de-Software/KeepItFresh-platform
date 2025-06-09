@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/orders/{orderId}/order-items",produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/orders/order-summary",produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Orders")
 public class OrderOrderSummaryController {
 
@@ -31,7 +31,7 @@ public class OrderOrderSummaryController {
     /**
      * Adds an order item to order summary
      */
-    @PostMapping
+    @PostMapping("/{orderId}")
     public ResponseEntity<OrderItemResource> addOrderItemToOrderSummary(
             @PathVariable Long orderId, @RequestBody AddOrderItemResource resource) {
 

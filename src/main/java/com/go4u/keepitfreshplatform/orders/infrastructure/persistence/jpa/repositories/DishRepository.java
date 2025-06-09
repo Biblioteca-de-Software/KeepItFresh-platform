@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface DishRepository extends JpaRepository<Dish, Long> {
 
-    Optional<Dish> findByTable(Table table);
+    //Optional<Dish> findByTable(Table table);
 
-    boolean existsByTable(Table table);
+    //boolean existsByTable(Table table);
 
     boolean existsByName(String name);
 

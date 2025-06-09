@@ -3,6 +3,7 @@ package com.go4u.keepitfreshplatform.orders.domain.model.aggregates;
 import com.go4u.keepitfreshplatform.orders.domain.model.commands.CreateDishCommand;
 import com.go4u.keepitfreshplatform.orders.domain.model.valueobjects.Price;
 import com.go4u.keepitfreshplatform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+import com.go4u.keepitfreshplatform.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Entity
-public class Dish extends AuditableAbstractAggregateRoot<Dish> {
+public class Dish extends AuditableModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
