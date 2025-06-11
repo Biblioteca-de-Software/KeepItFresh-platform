@@ -7,8 +7,8 @@ import jakarta.persistence.Embeddable;
  * @summary
  * This class encapsulates the report ID as a non-negative Long value.
  * It is used to uniquely identify a report within the system.
- * * @param reportId The unique identifier for the report, must be a non-negative number.
- * * @see IllegalArgumentException
+ * @param reportId The unique identifier for the report, must be a non-negative number.
+ * @see IllegalArgumentException
  */
 
 
