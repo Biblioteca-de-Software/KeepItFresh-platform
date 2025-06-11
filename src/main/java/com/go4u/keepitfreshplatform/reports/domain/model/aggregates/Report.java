@@ -8,5 +8,5 @@ import lombok.Getter;
 @Entity
 public class Report extends AuditableAbstractAggregateRoot<Report> {
     private String title;
-    private String description;
+    private String details;
 }
