@@ -1,5 +1,5 @@
 package com.go4u.keepitfreshplatform.iam.domain.model.aggregates;
-import com.go4u.keepitfreshplatform.iam.domain.model.Entity.Role;
+import com.go4u.keepitfreshplatform.iam.domain.model.entities.Role;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
