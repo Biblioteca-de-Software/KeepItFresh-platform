@@ -17,7 +17,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
 
     @Override
     public Long handle(CreateProductCommand command) {
-        var product = new Product();
+        var product = new Product(command);
         try{
             productRepository.save(product);
         }catch (Exception e){
