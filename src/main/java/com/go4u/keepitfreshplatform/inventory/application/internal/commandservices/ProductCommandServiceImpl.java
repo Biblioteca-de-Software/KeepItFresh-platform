@@ -4,12 +4,14 @@ import com.go4u.keepitfreshplatform.inventory.domain.model.aggregates.Product;
 import com.go4u.keepitfreshplatform.inventory.domain.model.commands.CreateProductCommand;
 import com.go4u.keepitfreshplatform.inventory.domain.services.ProductCommandService;
 import com.go4u.keepitfreshplatform.inventory.infrastructure.persistence.jpa.repositories.ProductRepository;
+import org.springframework.stereotype.Service;
 
-public class ProductCommandoServiceImpl implements ProductCommandService {
+@Service
+public class ProductCommandServiceImpl implements ProductCommandService {
 
     private final ProductRepository productRepository;
 
-    public ProductCommandoServiceImpl(ProductRepository productRepository) {
+    public ProductCommandServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
