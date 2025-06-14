@@ -1,4 +1,5 @@
 package com.go4u.keepitfreshplatform.inventory.domain.model.commands;
 
-public record CreateProductCommand(String name) {
+public record CreateProductCommand(Long productItemId) {
+
 }
