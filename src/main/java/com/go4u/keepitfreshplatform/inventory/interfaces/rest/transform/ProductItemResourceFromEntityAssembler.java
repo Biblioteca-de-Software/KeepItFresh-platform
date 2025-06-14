@@ -7,7 +7,6 @@ public class ProductItemResourceFromEntityAssembler {
     public static ProductItemResource toResourceFromEntity(Product entity){
         return new ProductItemResource(
                 entity.getId(),
-                entity.getProduct().getId(),
                 entity.getQuantity(),
                 entity.getExpirationDate(),
                 entity.getPrice());

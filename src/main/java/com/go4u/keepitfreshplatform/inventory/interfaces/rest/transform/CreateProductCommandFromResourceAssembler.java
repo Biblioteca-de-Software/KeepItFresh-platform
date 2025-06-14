@@ -5,6 +5,12 @@ import com.go4u.keepitfreshplatform.inventory.interfaces.rest.resources.CreatePr
 
 public class CreateProductCommandFromResourceAssembler {
     public static CreateProductCommand toCommandFromResource(CreateProductResource resource){
-        return new CreateProductCommand(resource.productItemId());
+        return new CreateProductCommand(
+                resource.name(),
+                resource.productItemId(),
+                resource.quantity(),
+                resource.expirationDate(),
+                resource.price()
+        );
     }
 }
