@@ -47,6 +47,7 @@ public class ProductsController {
         return ResponseEntity.ok(productResource);
     }
 
+    @GetMapping
     public ResponseEntity<List<ProductItemResource>> getAllProducts(){
         var getAllProductsQuery = new GetAllProductsQuery();
         var products = productQueryService.handle(getAllProductsQuery);
