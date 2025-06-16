@@ -30,11 +30,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "api/v1/reports", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Reports", description = "Operations related to reports")
-public class ReportController {
+public class ReportsController {
     private final ReportCommandService reportCommandService;
     private final ReportQueryService reportQueryService;
 
-    public ReportController(ReportCommandService reportCommandService, ReportQueryService reportQueryService) {
+    public ReportsController(ReportCommandService reportCommandService, ReportQueryService reportQueryService) {
         this.reportCommandService = reportCommandService;
         this.reportQueryService = reportQueryService;
     }
