@@ -1,7 +1,9 @@
 package com.go4u.keepitfreshplatform.reports.domain.model.aggregates;
 
+import com.go4u.keepitfreshplatform.reports.domain.model.commands.CreateReportCommand;
 import com.go4u.keepitfreshplatform.reports.domain.model.valueobjects.ReportId;
 import com.go4u.keepitfreshplatform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -11,7 +13,10 @@ import org.apache.logging.log4j.util.Strings;
 @Entity
 public class Report extends AuditableAbstractAggregateRoot<Report> {
 
+    @Getter
     private String title;
+
+    @Getter
     private String details;
 
     @Embedded
@@ -31,14 +36,10 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
         this.reportId = reportId;
     }
 
-    public Long getReportId() {
-        return this.reportId.reportId();
+    public Report(CreateReportCommand command) {
+        this.title = command.title();
+        this.details = command.description();
     }
-
-    public String getDetails() {
-        return this.details;
-    }
-
     //public Report(Long reportId) {
         //this(new ReportId(reportId));
     //}
