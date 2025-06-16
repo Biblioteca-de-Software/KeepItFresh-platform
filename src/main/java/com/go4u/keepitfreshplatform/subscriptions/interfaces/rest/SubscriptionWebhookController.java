@@ -30,11 +30,11 @@ public class SubscriptionWebhookController {
         try {
             event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
         } catch (SignatureVerificationException e) {
-            System.out.println("Firma inválida: " + e.getMessage());
-            return ResponseEntity.badRequest().body("Firma de webhook inválida");
+            System.out.println("Invalid signature: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Invalid webhook signature");
         }
 
-        System.out.println("Webhook recibido: " + event.getType());
+        System.out.println("Webhook received: " + event.getType());
 
         if ("checkout.session.completed".equals(event.getType())) {
             try {
@@ -43,7 +43,7 @@ public class SubscriptionWebhookController {
                 JsonNode root = mapper.readTree(payload);
                 String sessionId = root.path("data").path("object").path("id").asText();
 
-                System.out.println("Recuperando sesión desde Stripe con ID: " + sessionId);
+                System.out.println("Recovering session from Stripe with ID: " + sessionId);
 
                 // Recuperar sesión directamente desde Stripe
                 Session session = Session.retrieve(sessionId);
@@ -57,24 +57,24 @@ public class SubscriptionWebhookController {
                         subscription.setStartDate(LocalDate.now());
                         subscription.setActive(true);
                         repository.save(subscription);
-                        System.out.println("Suscripción activada para: " + email);
+                        System.out.println("Subscription activated for: " + email);
                     });
                 } else {
-                    System.out.println("Email no encontrado en la sesión.");
+                    System.out.println("Email not found in the session.");
                 }
 
             } catch (Exception e) {
-                System.out.println("Error al procesar sesión: " + e.getMessage());
-                return ResponseEntity.internalServerError().body("Error al procesar sesión");
+                System.out.println("Error processing session: " + e.getMessage());
+                return ResponseEntity.internalServerError().body("Error processing session");
             }
         }
 
-        return ResponseEntity.ok("Webhook procesado con éxito");
+        return ResponseEntity.ok("Webhook processed successfully");
     }
 
     @DeleteMapping("/delete-all")
     public ResponseEntity<String> deleteAllSubscriptions() {
         repository.deleteAll();
-        return ResponseEntity.ok("🗑️ Todas las suscripciones han sido eliminadas");
+        return ResponseEntity.ok("All subscriptions have been removed");
     }
 }

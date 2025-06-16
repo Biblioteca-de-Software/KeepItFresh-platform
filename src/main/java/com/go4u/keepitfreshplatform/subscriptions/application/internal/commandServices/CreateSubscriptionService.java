@@ -54,7 +54,6 @@ public class CreateSubscriptionService {
 
         Session session = Session.create(params);
 
-        // Guardar como pendiente
         domainService.savePending(email, plan);
 
         return session.getUrl();
