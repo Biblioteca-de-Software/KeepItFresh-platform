@@ -6,12 +6,16 @@ import com.go4u.keepitfreshplatform.shared.domain.model.aggregates.AuditableAbst
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.data.annotation.Id;
 
 @Getter
 @Entity
-public class Report extends AuditableAbstractAggregateRoot<Report> {
+public class Report
+        //extends AuditableAbstractAggregateRoot<Report>
+ {
 
     @Getter
     private String title;
@@ -19,7 +23,8 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
     @Getter
     private String details;
 
-    @Embedded
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private ReportId reportId;
 
     public Report(){
