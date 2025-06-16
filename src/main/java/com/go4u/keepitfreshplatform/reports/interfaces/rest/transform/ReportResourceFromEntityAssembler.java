@@ -6,7 +6,7 @@ import com.go4u.keepitfreshplatform.reports.interfaces.rest.resources.ReportReso
 
 public class ReportResourceFromEntityAssembler {
     public static ReportResource toResourceFromEntity(Report report) {
-        return new ReportResource(report.getId(), report.getTitle(),
+        return new ReportResource(report.getReportId(), report.getTitle(),
                                   report.getDetails()
         );
     }
