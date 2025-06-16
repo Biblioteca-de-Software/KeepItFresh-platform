@@ -39,14 +39,24 @@ public class ReportController {
         this.reportQueryService = reportQueryService;
     }
 
-    //@Operation(
-    //        summary = "Create a new report",
-    //        description = "Creates a new report with the provided title and description.")
-    //@ApiResponses(value = {
-    //    @ApiResponse(responseCode = "201", description = "Report created successfully"),
-    //    @ApiResponse(responseCode = "400", description = "Invalid input data")
-    //})
-    //@PostMapping()
+    @Operation(
+            summary = "Create a new report",
+            description = "Creates a new report with the provided title and description.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Report created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input data")
+    })
+    @PostMapping()
+    public ResponseEntity<ReportResource> createReport(
+            @RequestBody(description = "Details of the report to be created") CreateReportResource createReportResource) {
+        var createReportCommand = CreateReportCommandFromResourceAssembler.toCommandFromResource(createReportResource);
+        Optional<Report> report = reportCommandService.handle(createReportCommand);
+        if(report.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+        ReportResource reportResource = ReportResourceFromEntityAssembler.toResourceFromEntity(report.get());
+        return ResponseEntity.status(CREATED).body(reportResource);
+    }
 
     @GetMapping
     public ResponseEntity<List<Report>> getAllReports() {

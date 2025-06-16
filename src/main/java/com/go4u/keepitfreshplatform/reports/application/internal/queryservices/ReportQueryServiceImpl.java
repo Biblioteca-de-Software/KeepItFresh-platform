@@ -5,10 +5,12 @@ import com.go4u.keepitfreshplatform.reports.domain.model.queries.GetAllReportsQu
 import com.go4u.keepitfreshplatform.reports.domain.model.queries.GetReportByIdQuery;
 import com.go4u.keepitfreshplatform.reports.domain.services.ReportQueryService;
 import com.go4u.keepitfreshplatform.reports.infrastructure.persistence.jpa.repositories.ReportRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReportQueryServiceImpl implements ReportQueryService {
 
     private final ReportRepository reportRepository;
