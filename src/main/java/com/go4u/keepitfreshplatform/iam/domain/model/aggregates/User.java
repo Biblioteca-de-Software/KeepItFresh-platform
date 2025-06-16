@@ -19,7 +19,9 @@ import java.util.Set;
 @Setter
 @Entity
 public class User extends AbstractAggregateRoot<User> {
-@Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 @NotBlank
 @Size(max = 60)

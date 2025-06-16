@@ -1,42 +1,64 @@
 package com.go4u.keepitfreshplatform.iam.application.internal.commandservices;
 
+import com.go4u.keepitfreshplatform.iam.application.internal.outboundservices.hashing.HashingService;
+import com.go4u.keepitfreshplatform.iam.application.internal.outboundservices.tokens.TokenService;
 import com.go4u.keepitfreshplatform.iam.domain.model.aggregates.User;
-import com.go4u.keepitfreshplatform.iam.domain.model.commands.SignUpCommand;
 import com.go4u.keepitfreshplatform.iam.domain.model.commands.SignInCommand;
-import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandsService;
+import com.go4u.keepitfreshplatform.iam.domain.model.commands.SignUpCommand;
+import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandService;
+
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.RoleRepository;
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.UserRepository;
+
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+
 @Service
-public  class UserCommandServiceImpl implements UserCommandsService {
+public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
-
     private final RoleRepository roleRepository;
-
-    public UserCommandServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    private final HashingService hashingService;
+    private final TokenService tokenService;
 
     /**
-     * @param command
-     * @return
+     * Constructor.
+     *
+     * @param userRepository the {@link UserRepository} user repository.
+     * @param roleRepository the {@link RoleRepository} role repository.
+     * @param hashingService the {@link HashingService} hashing service.
+     * @param tokenService the {@link TokenService} token service.
      */
-    @Override
-    public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
-        return Optional.empty();
-    }
+ public UserCommandServiceImpl(UserRepository userRepository, RoleRepository roleRepository,HashingService hashingService, TokenService tokenService) {
+     this.userRepository = userRepository;
+     this.roleRepository = roleRepository;
+     this.hashingService = hashingService;
+     this.tokenService = tokenService;
 
-    /**
-     * @param command
-     * @return
-     */
+ }
+    // inherited javadoc
     @Override
     public Optional<User> handle(SignUpCommand command) {
-        return Optional.empty();
+        if (userRepository.existsByUsername(command.username()))
+            throw new RuntimeException("Username already exists");
+        var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName())
+                .orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
+        var user = new User(command.username(), hashingService.encode(command.password()), roles);
+        userRepository.save(user);
+        return userRepository.findByUsername(command.username());
+    }
+
+    // inherited javadoc
+    @Override
+    public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
+        var user = userRepository.findByUsername(command.username())
+                .orElseThrow(() -> new RuntimeException("Username not found"));
+        if (!hashingService.matches(command.password(), user.getPassword()))
+            throw new RuntimeException("Invalid password");
+        var token = tokenService.generateToken(user.getUsername());
+        return Optional.of(new ImmutablePair<>(user, token));
     }
 }

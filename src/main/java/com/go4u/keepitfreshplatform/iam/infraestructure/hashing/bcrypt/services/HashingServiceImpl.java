@@ -17,13 +17,7 @@ public class HashingServiceImpl implements BCryptHashingService {
     public String encode(CharSequence rawPassword) {
         return passwordEncoder.encode(rawPassword);
     }
-    /**
-     * Matches the raw password with the encoded password
-     *
-     * @param rawPassword     the password
-     * @param encodedPassword the encoded password
-     * @return true if the password matches the encoded password, false otherwise
-     */
+
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
