@@ -2,6 +2,7 @@ package com.go4u.keepitfreshplatform.reports.interfaces.rest;
 
 
 import com.go4u.keepitfreshplatform.reports.domain.model.aggregates.Report;
+import com.go4u.keepitfreshplatform.reports.domain.model.queries.GetAllReportsQuery;
 import com.go4u.keepitfreshplatform.reports.domain.services.ReportCommandService;
 import com.go4u.keepitfreshplatform.reports.domain.services.ReportQueryService;
 import com.go4u.keepitfreshplatform.reports.interfaces.rest.resources.CreateReportResource;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -44,5 +46,12 @@ public class ReportController {
     //    @ApiResponse(responseCode = "400", description = "Invalid input data")
     //})
     //@PostMapping()
+
+    @GetMapping
+    public ResponseEntity<List<Report>> getAllReports() {
+        var getAllReportsQuery = new GetAllReportsQuery();
+        var reports = reportQueryService.handle(getAllReportsQuery);
+        return ResponseEntity.ok(reports);
+    }
 
 }
