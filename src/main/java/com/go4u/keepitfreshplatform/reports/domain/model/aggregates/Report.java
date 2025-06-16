@@ -35,6 +35,10 @@ public class Report extends AuditableAbstractAggregateRoot<Report> {
         return this.reportId.reportId();
     }
 
+    public String getDetails() {
+        return this.details;
+    }
+
     //public Report(Long reportId) {
         //this(new ReportId(reportId));
     //}
