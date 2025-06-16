@@ -8,17 +8,20 @@ import com.go4u.keepitfreshplatform.inventory.domain.model.valueobjects.Quantity
 import com.go4u.keepitfreshplatform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
 @Entity
 @Getter
-public class Product extends AuditableAbstractAggregateRoot<Product> {
+public class Product{
 
     private String name;
 
-    @Embedded
-    private ProductId productId;
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private Long productId;
 
     @Embedded
     private Quantity quantity;
@@ -35,7 +38,6 @@ public class Product extends AuditableAbstractAggregateRoot<Product> {
 
     public Product(CreateProductCommand command) {
         this.name = command.name();
-        this.productId = new ProductId(command.productId());
         this.quantity = new Quantity(command.quantity());
         this.expirationDate = new ExpirationDate(command.expirationDate());
         this.price = new Price(command.price());

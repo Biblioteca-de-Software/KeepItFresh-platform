@@ -6,7 +6,7 @@ import com.go4u.keepitfreshplatform.inventory.interfaces.rest.resources.ProductI
 public class ProductItemResourceFromEntityAssembler {
     public static ProductItemResource toResourceFromEntity(Product entity){
         return new ProductItemResource(
-                entity.getId(),
+                entity.getProductId(),
                 entity.getQuantity(),
                 entity.getExpirationDate(),
                 entity.getPrice());

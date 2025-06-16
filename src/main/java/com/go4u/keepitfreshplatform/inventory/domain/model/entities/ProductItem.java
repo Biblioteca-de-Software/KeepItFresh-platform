@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Getter
-public class ProductItem extends AuditableModel {
+public class ProductItem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
