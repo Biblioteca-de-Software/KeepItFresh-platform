@@ -3,6 +3,7 @@ package com.go4u.keepitfreshplatform.reports.interfaces.rest;
 
 import com.go4u.keepitfreshplatform.reports.domain.model.aggregates.Report;
 import com.go4u.keepitfreshplatform.reports.domain.model.queries.GetAllReportsQuery;
+import com.go4u.keepitfreshplatform.reports.domain.model.queries.GetReportByIdQuery;
 import com.go4u.keepitfreshplatform.reports.domain.services.ReportCommandService;
 import com.go4u.keepitfreshplatform.reports.domain.services.ReportQueryService;
 import com.go4u.keepitfreshplatform.reports.interfaces.rest.resources.CreateReportResource;
@@ -52,6 +53,14 @@ public class ReportController {
         var getAllReportsQuery = new GetAllReportsQuery();
         var reports = reportQueryService.handle(getAllReportsQuery);
         return ResponseEntity.ok(reports);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Report> getReportById(Long id) {
+        var getReportByIdQuery = new GetReportByIdQuery(id);
+        Optional<Report> report = reportQueryService.handle(getReportByIdQuery);
+        return report.map(ResponseEntity::ok)
+                     .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }
