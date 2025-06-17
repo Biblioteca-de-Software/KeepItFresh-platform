@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -61,12 +63,23 @@ public class OrdersController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderResource>> getAllOrders() {
+    public ResponseEntity<List<Map<String, Object>>> getAllOrders() {
         var getAllOrdersQuery = new GetAllOrdersQuery();
         var orders = orderQueryService.handle(getAllOrdersQuery);
-        var orderResources = orders.stream().map(OrderResourceFromEntityAssembler::toResourceFromEntity).toList();
+
+        var orderResources = orders.stream().map(order -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", order.getId());
+            map.put("restaurant_id", order.getRestaurantId());
+            map.put("table_number", order.getTableNumber());
+            map.put("total", order.getTotal().price()); // Extrae valor primitivo del VO
+            map.put("createdAt", order.getCreatedAt().toInstant().toString()); // Formato ISO
+            return map;
+        }).toList();
+
         return ResponseEntity.ok(orderResources);
     }
+
 
 
 }
