@@ -4,6 +4,7 @@ import com.go4u.keepitfreshplatform.orders.domain.model.aggregates.Order;
 import com.go4u.keepitfreshplatform.orders.domain.model.commands.AddDishToOrderCommand;
 import com.go4u.keepitfreshplatform.orders.domain.model.commands.CreateOrderCommand;
 import com.go4u.keepitfreshplatform.orders.domain.model.entities.OrderItem;
+import com.go4u.keepitfreshplatform.orders.domain.model.valueobjects.OrderSummary;
 import com.go4u.keepitfreshplatform.orders.domain.model.valueobjects.Price;
 import com.go4u.keepitfreshplatform.orders.domain.services.OrderCommandService;
 import com.go4u.keepitfreshplatform.orders.infrastructure.persistence.jpa.repositories.DishRepository;
@@ -25,7 +26,12 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     @Override
     public Long handle(CreateOrderCommand command){
-        var order = new Order();
+        var order = new Order(
+                1L,
+                command.tableNumber(),
+                new Price(BigDecimal.ZERO),
+                new OrderSummary()
+        );
         try{
             orderRepository.save(order);
         } catch(Exception e){
