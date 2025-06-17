@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/orders/order-summary",produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/orders/order-summary",produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Orders")
 public class OrderOrderSummaryController {
 
@@ -59,5 +59,22 @@ public class OrderOrderSummaryController {
         }
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderItemResource> getOrderItemById(@PathVariable Long orderId) {
+        var order = orderQueryService.handle(new GetOrderByIdQuery(orderId));
+        if (order.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var items = order.get().getOrderSummary().getOrderItems();
+        if (items.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        var lastItem = items.getLast();
+        var itemResource = OrderItemResourceFromEntityAssembler.toResourceFromEntity(lastItem);
+
+        return ResponseEntity.ok(itemResource);
+    }
 
 }
