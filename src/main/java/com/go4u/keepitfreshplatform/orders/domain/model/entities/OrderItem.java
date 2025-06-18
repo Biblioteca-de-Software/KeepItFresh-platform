@@ -26,10 +26,10 @@ public class OrderItem extends AuditableModel {
     private Order order;
 
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private Dish dish;
+
 
     @NotNull
     private Quantity quantity;

@@ -29,8 +29,8 @@ public class Dish extends AuditableModel {
     }
 
     public Dish(String name, BigDecimal price) {
-       this();
-       this.name = name;
+        this();
+        this.name = name;
         this.price = new Price(price);
     }
 
