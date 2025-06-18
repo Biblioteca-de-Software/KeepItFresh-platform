@@ -12,12 +12,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 public class Order extends AuditableAbstractAggregateRoot<Order> {
-
-    @NotNull
-    private Long restaurantId;
 
     @NotNull
     private int tableNumber;
@@ -29,8 +28,7 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     @Embedded
     private final OrderSummary orderSummary;
 
-    public Order(Long restaurantId, int tableNumber, Price total, OrderSummary orderSummary) {
-        this.restaurantId = restaurantId;
+    public Order(int tableNumber, Price total, OrderSummary orderSummary) {
         this.tableNumber = tableNumber;
         this.total = total;
         this.orderSummary = orderSummary;
@@ -38,11 +36,11 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
 
     public Order(CreateOrderCommand command, OrderSummary orderSummary) {
         this.tableNumber = command.tableNumber();
+        this.total = new Price(BigDecimal.ZERO); // O el valor que corresponda
         this.orderSummary = orderSummary;
     }
 
     public Order() {
-        this.restaurantId = null;
         this.tableNumber = 0;
         this.total = null;
         this.orderSummary = new OrderSummary();

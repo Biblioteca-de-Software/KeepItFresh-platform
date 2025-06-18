@@ -71,7 +71,6 @@ public class OrdersController {
         var orderResources = orders.stream().map(order -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", order.getId());
-            map.put("restaurant_id", order.getRestaurantId());
             map.put("table_number", order.getTableNumber());
             map.put("total", order.getTotal().price()); // Extrae valor primitivo del VO
             map.put("createdAt", order.getCreatedAt().toInstant().toString()); // Formato ISO
