@@ -5,6 +5,6 @@ import com.go4u.keepitfreshplatform.orders.interfaces.rest.resources.CreateOrder
 
 public class CreateOrderCommandFromResourceAssembler {
     public static CreateOrderCommand toCommandFromResource(CreateOrderResource resource) {
-        return new CreateOrderCommand(resource.tableNumber());
+        return new CreateOrderCommand(resource.restaurantId(), resource.tableNumber());
     }
 }

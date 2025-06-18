@@ -12,6 +12,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 public class Order extends AuditableAbstractAggregateRoot<Order> {
@@ -37,7 +39,9 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     }
 
     public Order(CreateOrderCommand command, OrderSummary orderSummary) {
+        this.restaurantId = command.restaurantId(); // ✅ asegurarse de que esté en el comando
         this.tableNumber = command.tableNumber();
+        this.total = new Price(BigDecimal.ZERO); // O el valor que corresponda
         this.orderSummary = orderSummary;
     }
 

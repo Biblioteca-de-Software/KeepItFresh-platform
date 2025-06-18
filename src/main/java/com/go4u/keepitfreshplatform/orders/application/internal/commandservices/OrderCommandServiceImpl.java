@@ -27,7 +27,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     public Long handle(CreateOrderCommand command){
         var order = new Order(
-                1L,
+                command.restaurantId(), // ✅ usar el valor real
                 command.tableNumber(),
                 new Price(BigDecimal.ZERO),
                 new OrderSummary()
