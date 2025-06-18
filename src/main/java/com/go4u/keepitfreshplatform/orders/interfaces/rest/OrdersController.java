@@ -22,6 +22,7 @@ import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/v1/orders", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Orders", description = "Order Management Endpoints")
