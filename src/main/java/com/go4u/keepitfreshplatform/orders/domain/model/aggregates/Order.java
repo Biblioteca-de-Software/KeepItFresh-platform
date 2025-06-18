@@ -19,9 +19,6 @@ import java.math.BigDecimal;
 public class Order extends AuditableAbstractAggregateRoot<Order> {
 
     @NotNull
-    private Long restaurantId;
-
-    @NotNull
     private int tableNumber;
 
     @NotNull
@@ -31,22 +28,19 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     @Embedded
     private final OrderSummary orderSummary;
 
-    public Order(Long restaurantId, int tableNumber, Price total, OrderSummary orderSummary) {
-        this.restaurantId = restaurantId;
+    public Order(int tableNumber, Price total, OrderSummary orderSummary) {
         this.tableNumber = tableNumber;
         this.total = total;
         this.orderSummary = orderSummary;
     }
 
     public Order(CreateOrderCommand command, OrderSummary orderSummary) {
-        this.restaurantId = command.restaurantId(); // ✅ asegurarse de que esté en el comando
         this.tableNumber = command.tableNumber();
         this.total = new Price(BigDecimal.ZERO); // O el valor que corresponda
         this.orderSummary = orderSummary;
     }
 
     public Order() {
-        this.restaurantId = null;
         this.tableNumber = 0;
         this.total = null;
         this.orderSummary = new OrderSummary();
