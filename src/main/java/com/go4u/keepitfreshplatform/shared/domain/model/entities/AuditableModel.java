@@ -11,6 +11,7 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public class AuditableModel {
+
     @Getter
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -20,4 +21,5 @@ public class AuditableModel {
     @LastModifiedDate
     @Column(nullable = false)
     private Date updatedAt;
+
 }
