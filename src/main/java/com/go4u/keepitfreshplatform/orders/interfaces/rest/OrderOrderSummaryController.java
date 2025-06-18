@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/v1/orders/order-summary",produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Orders")
