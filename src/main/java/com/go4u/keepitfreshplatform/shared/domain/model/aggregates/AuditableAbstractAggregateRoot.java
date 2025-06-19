@@ -15,23 +15,14 @@ import java.util.Date;
  *
  * @param <T> the type of the aggregate root
  */
-@EntityListeners(AuditingEntityListener.class)
-@MappedSuperclass
-public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> extends AbstractAggregateRoot<T> {
 
-    @Id
-    @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Getter
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createdAt;
 
-    @Getter
+
     @LastModifiedDate
     @Column(nullable = false)
     private Date updatedAt;
 
-}
+
