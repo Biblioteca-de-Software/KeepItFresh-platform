@@ -22,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!-- Tu lista de dependencias -->
+        <!-- Tus dependencias originales -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -88,7 +88,8 @@
 
     <build>
         <plugins>
-            <!-- Para build del proyecto -->
+
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -100,7 +101,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Para ejecución con spring-boot:run y preview -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -109,7 +109,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Para tests (JUnit) con preview -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -120,4 +119,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
