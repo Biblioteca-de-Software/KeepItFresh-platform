@@ -8,7 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.go4u</groupId>
@@ -22,14 +22,10 @@
     </properties>
 
     <dependencies>
+        <!-- Tu lista de dependencias -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.12.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +38,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.12.6</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -87,22 +88,7 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot plugin -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                    <jvmArguments>--enable-preview</jvmArguments>
-                </configuration>
-            </plugin>
-
-            <!-- Maven Compiler Plugin with preview -->
+            <!-- Para build del proyecto -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -114,7 +100,16 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire Plugin for tests with preview -->
+            <!-- Para ejecución con spring-boot:run y preview -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <jvmArguments>--enable-preview</jvmArguments>
+                </configuration>
+            </plugin>
+
+            <!-- Para tests (JUnit) con preview -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
