@@ -3,6 +3,7 @@ package com.go4u.keepitfreshplatform.inventory.domain.model.valueobjects;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
+
 public record ProductId(Long productId) {
 
     public ProductId {

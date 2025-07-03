@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public record CreateProductCommand(
         String name,
-        Long productId,
+        //Long productId,
         Integer quantity,
         LocalDate expirationDate,
         BigDecimal price

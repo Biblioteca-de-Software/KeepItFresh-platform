@@ -7,7 +7,7 @@ public class CreateProductCommandFromResourceAssembler {
     public static CreateProductCommand toCommandFromResource(CreateProductResource resource){
         return new CreateProductCommand(
                 resource.name(),
-                resource.productItemId(),
+                //resource.productItemId(),
                 resource.quantity(),
                 resource.expirationDate(),
                 resource.price()

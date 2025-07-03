@@ -5,9 +5,9 @@ import com.go4u.keepitfreshplatform.inventory.domain.model.queries.GetProductByI
 import com.go4u.keepitfreshplatform.inventory.domain.services.ProductCommandService;
 import com.go4u.keepitfreshplatform.inventory.domain.services.ProductQueryService;
 import com.go4u.keepitfreshplatform.inventory.interfaces.rest.resources.CreateProductResource;
-import com.go4u.keepitfreshplatform.inventory.interfaces.rest.resources.ProductItemResource;
+import com.go4u.keepitfreshplatform.inventory.interfaces.rest.resources.ProductResource;
 import com.go4u.keepitfreshplatform.inventory.interfaces.rest.transform.CreateProductCommandFromResourceAssembler;
-import com.go4u.keepitfreshplatform.inventory.interfaces.rest.transform.ProductItemResourceFromEntityAssembler;
+import com.go4u.keepitfreshplatform.inventory.interfaces.rest.transform.ProductResourceFromEntityAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/v1/products", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "Products", description = "Operations related to products in the inventory")
@@ -30,7 +31,8 @@ public class ProductsController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProductItemResource> createProduct(@RequestBody CreateProductResource createProductResource) {
+    public ResponseEntity<ProductResource> createProduct(@RequestBody CreateProductResource createProductResource) {
+
         var createProductCommand = CreateProductCommandFromResourceAssembler.toCommandFromResource(createProductResource);
         var productId = productCommandService.handle(createProductCommand);
         if (productId == null) {
@@ -43,15 +45,17 @@ public class ProductsController {
             return ResponseEntity.badRequest().build();
         }
 
-        var productResource = ProductItemResourceFromEntityAssembler.toResourceFromEntity(optionalProduct.get());
+        var productResource = ProductResourceFromEntityAssembler.toResourceFromEntity(optionalProduct.get());
         return ResponseEntity.ok(productResource);
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductItemResource>> getAllProducts(){
+    public ResponseEntity<List<ProductResource>> getAllProducts() {
         var getAllProductsQuery = new GetAllProductsQuery();
         var products = productQueryService.handle(getAllProductsQuery);
-        var productResources = products.stream().map(ProductItemResourceFromEntityAssembler::toResourceFromEntity).toList();
+        var productResources = products.stream()
+                .map(ProductResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
         return ResponseEntity.ok(productResources);
     }
 }
