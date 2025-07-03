@@ -20,23 +20,17 @@ import java.util.Date;
 @MappedSuperclass
 public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> extends AbstractAggregateRoot<T> {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date createdAt;
 
+    @Getter
     @LastModifiedDate
     @Column(nullable = false)
     private Date updatedAt;
-
-    /**
-     * Registers a domain event to be published.
-     *
-     * @param event the domain event to register
-     */
-    public void addDomainEvent(Object event) {
-        registerEvent(event);
-    }
 }
