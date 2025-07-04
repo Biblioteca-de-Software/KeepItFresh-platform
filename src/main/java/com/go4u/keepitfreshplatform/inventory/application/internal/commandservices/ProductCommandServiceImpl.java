@@ -26,6 +26,6 @@ public class ProductCommandServiceImpl implements ProductCommandService {
                     ("Error while saving product"
                             + e.getMessage());
         }
-        return product.getProductId();
+        return product.getId();
     }
 }
