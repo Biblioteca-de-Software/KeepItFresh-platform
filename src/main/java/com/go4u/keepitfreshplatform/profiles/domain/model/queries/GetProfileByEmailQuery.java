@@ -1,3 +1,3 @@
 package com.go4u.keepitfreshplatform.profiles.domain.model.queries;
-
-public record GetProfileByEmailQuery(String email) {}
+import com.go4u.keepitfreshplatform.profiles.domain.model.valueobjects.EmailAddress;
+public record GetProfileByEmailQuery(EmailAddress emailAddress) {}
