@@ -7,8 +7,10 @@ public class ProductItemResourceFromEntityAssembler {
     public static ProductItemResource toResourceFromEntity(Product entity){
         return new ProductItemResource(
                 entity.getProductId(),
+                entity.getName(),                    // ✅ AGREGADO
                 entity.getQuantity(),
                 entity.getExpirationDate(),
-                entity.getPrice());
+                entity.getPrice()
+        );
     }
 }
