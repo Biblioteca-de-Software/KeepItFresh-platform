@@ -1,13 +1,12 @@
 package com.go4u.keepitfreshplatform.profiles.domain.model.aggregates;
+
 import com.go4u.keepitfreshplatform.profiles.domain.model.commands.CreateProfileCommand;
 import com.go4u.keepitfreshplatform.profiles.domain.model.valueobjects.PersonName;
 import com.go4u.keepitfreshplatform.profiles.domain.model.valueobjects.EmailAddress;
 import com.go4u.keepitfreshplatform.profiles.domain.model.valueobjects.PhoneNumber;
 import com.go4u.keepitfreshplatform.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 /**
@@ -15,6 +14,10 @@ import java.time.LocalDate;
  */
 @Entity
 public class Profile extends AuditableAbstractAggregateRoot<Profile> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Embedded
     private PersonName name;
@@ -81,7 +84,11 @@ public class Profile extends AuditableAbstractAggregateRoot<Profile> {
         return userId;
     }
 
-    // Métodos de actualización (opcionales)
+    public Long getId() {
+        return id;
+    }
+
+    // Métodos de actualización
     public void updateName(String firstName, String lastName) {
         this.name = new PersonName(firstName, lastName);
     }

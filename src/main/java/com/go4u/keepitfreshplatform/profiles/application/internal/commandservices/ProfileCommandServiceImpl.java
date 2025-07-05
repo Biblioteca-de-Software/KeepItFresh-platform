@@ -5,6 +5,7 @@ import com.go4u.keepitfreshplatform.profiles.domain.model.commands.CreateProfile
 import com.go4u.keepitfreshplatform.profiles.domain.model.valueobjects.EmailAddress;
 import com.go4u.keepitfreshplatform.profiles.domain.services.ProfileCommandService;
 import com.go4u.keepitfreshplatform.profiles.infrastructure.persistence.jpa.repository.ProfileRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
  * Profile Command Service Implementation
  */
 @Service
+@Transactional  // ✅ Esto asegura que los cambios se persistan
 public class ProfileCommandServiceImpl implements ProfileCommandService {
 
     private final ProfileRepository profileRepository;
