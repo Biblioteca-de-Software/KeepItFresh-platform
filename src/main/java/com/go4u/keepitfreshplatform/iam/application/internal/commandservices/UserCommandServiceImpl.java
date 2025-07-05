@@ -9,6 +9,8 @@ import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandService;
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.RoleRepository;
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.UserRepository;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -52,10 +54,13 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
         var user = userRepository.findByUsername(command.username())
-                .orElseThrow(() -> new RuntimeException("Username not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
         if (!hashingService.matches(command.password(), user.getPassword()))
-            throw new RuntimeException("Invalid password");
+            throw new BadCredentialsException("Invalid password");
+
         var token = tokenService.generateToken(user.getUsername());
         return Optional.of(new ImmutablePair<>(user, token));
     }
+
 }
