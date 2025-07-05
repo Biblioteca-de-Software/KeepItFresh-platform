@@ -98,7 +98,8 @@ public class  WebSecurityConfiguration {
         http.sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         // Authorize requests configuration
         http.authorizeHttpRequests(configurer -> configurer.requestMatchers(permittedRequestPatterns).permitAll()
-                .anyRequest().authenticated());
+                .anyRequest().permitAll()
+        );
         // Authentication configuration
         http.authenticationProvider(authenticationProvider());
         // Authorization configuration
