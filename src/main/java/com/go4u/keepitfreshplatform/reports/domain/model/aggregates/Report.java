@@ -1,55 +1,45 @@
 package com.go4u.keepitfreshplatform.reports.domain.model.aggregates;
 
 import com.go4u.keepitfreshplatform.reports.domain.model.commands.CreateReportCommand;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
 @Getter
 @Entity
-public class Report
-        //extends AuditableAbstractAggregateRoot<Report>
- {
+public class Report {
 
-     @Id
-     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-     private Long reportId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long reportId;
 
-
-    @Getter
     private String title;
 
-    @Getter
-    private String details;
+    // ✅ CAMBIO: details → description
+    private String description;
 
-
-    public Report(){
+    public Report() {
         // Default constructor for JPA
         super();
         this.title = Strings.EMPTY;
-        this.details = Strings.EMPTY;
-
+        this.description = Strings.EMPTY;
     }
 
-    public Report(Long reportId, String title, String details) {
+    public Report(Long reportId, String title, String description) {
         this.title = title;
-        this.details = details;
+        this.description = description;
         this.reportId = reportId;
     }
 
     public Report(CreateReportCommand command) {
         this.title = command.title();
-        this.details = command.description();
+        this.description = command.description(); // ✅ debe coincidir
     }
 
-    public Long getReportId(){
+    public Long getReportId() {
         return this.reportId;
     }
-    //public Report(Long reportId) {
-        //this(new ReportId(reportId));
-    //}
-
 }

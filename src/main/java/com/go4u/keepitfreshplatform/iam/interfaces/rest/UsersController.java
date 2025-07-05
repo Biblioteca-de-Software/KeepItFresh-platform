@@ -26,7 +26,6 @@ public class UsersController {
     private final UserQueryService userQueryService;
 
     /**
-    /**
      * Constructor.
      *
      * @param userQueryService The user query service.

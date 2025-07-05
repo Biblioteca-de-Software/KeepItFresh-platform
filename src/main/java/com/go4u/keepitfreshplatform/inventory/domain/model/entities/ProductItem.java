@@ -4,13 +4,9 @@ import com.go4u.keepitfreshplatform.inventory.domain.model.aggregates.Product;
 import com.go4u.keepitfreshplatform.inventory.domain.model.valueobjects.ExpirationDate;
 import com.go4u.keepitfreshplatform.inventory.domain.model.valueobjects.Price;
 import com.go4u.keepitfreshplatform.inventory.domain.model.valueobjects.Quantity;
-import com.go4u.keepitfreshplatform.shared.domain.model.entities.AuditableModel;
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-
-import java.math.BigDecimal;
 
 @Entity
 @Getter
