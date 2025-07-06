@@ -124,7 +124,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <jvmArguments>--enable-preview</jvmArguments>
+                    <mainClass>com.go4u.keepitfreshplatform.KeepItFreshPlatformApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
