@@ -8,7 +8,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 
 # Habilita modo debug y limpia antes de compilar
-RUN mvn clean package -DskipTests -X --no-transfer-progress
+RUN mvn clean package -DskipTests -X --no-transfer-progress | tee build.log
 
 # Runtime stage
 FROM eclipse-temurin:24-jre AS runtime
