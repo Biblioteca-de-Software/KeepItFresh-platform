@@ -28,6 +28,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "Orders", description = "Order Management Endpoints")
 public class OrdersController {
 
+
+
     private final OrderCommandService orderCommandService;
     private final OrderQueryService orderQueryService;
 
