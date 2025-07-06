@@ -1,7 +1,6 @@
 package com.go4u.keepitfreshplatform.iam.infraestructure.authorization.sfs.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.go4u.keepitfreshplatform.iam.domain.model.aggregates.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

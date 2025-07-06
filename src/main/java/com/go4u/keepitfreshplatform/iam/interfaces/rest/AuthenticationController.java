@@ -1,9 +1,8 @@
 package com.go4u.keepitfreshplatform.iam.interfaces.rest;
-
 import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandService;
 import com.go4u.keepitfreshplatform.iam.interfaces.rest.resources.AuthenticatedUserResource;
-import com.go4u.keepitfreshplatform.iam.interfaces.rest.resources.SignInResource;
 import com.go4u.keepitfreshplatform.iam.interfaces.rest.resources.SignUpResource;
+import com.go4u.keepitfreshplatform.iam.interfaces.rest.resources.SignInResource;
 import com.go4u.keepitfreshplatform.iam.interfaces.rest.resources.UserResource;
 import com.go4u.keepitfreshplatform.iam.interfaces.rest.transform.AuthenticatedUserResourceFromEntityAssembler;
 import com.go4u.keepitfreshplatform.iam.interfaces.rest.transform.SignInCommandFromResourceAssembler;

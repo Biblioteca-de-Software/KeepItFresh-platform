@@ -1,7 +1,5 @@
 package com.go4u.keepitfreshplatform.iam.interfaces.rest.transform;
-
 import com.go4u.keepitfreshplatform.iam.domain.model.entities.Role;
-
 import java.util.List;
 import java.util.Set;
 public class RoleStringListFromEntityListAssembler {

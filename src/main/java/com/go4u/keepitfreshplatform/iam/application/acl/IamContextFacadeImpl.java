@@ -7,19 +7,12 @@ import com.go4u.keepitfreshplatform.iam.domain.model.queries.GetUserByUsernameQu
 import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandService;
 import com.go4u.keepitfreshplatform.iam.domain.services.UserQueryService;
 import com.go4u.keepitfreshplatform.iam.interfaces.acl.IamContextFacade;
-import io.jsonwebtoken.lang.Strings;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * IamContextFacadeImpl
- * <p>
- *     This class provides the implementation of the IamContextFacade interface.
- *     This class is used by the ACL module to interact with the IAM module.
- * </p>
- */
 @Service
 public class IamContextFacadeImpl implements IamContextFacade {
     private final UserCommandService userCommandService;
@@ -27,8 +20,8 @@ public class IamContextFacadeImpl implements IamContextFacade {
 
     /**
      * Constructor
-     * @param userCommandService the {@link UserCommandService} user command service
-     * @param userQueryService the {@link UserQueryService} user query service
+     * @param userCommandService The user command service.
+     * @param userQueryService The user query service.
      */
     public IamContextFacadeImpl(UserCommandService userCommandService, UserQueryService userQueryService) {
         this.userCommandService = userCommandService;
@@ -63,10 +56,11 @@ public class IamContextFacadeImpl implements IamContextFacade {
         return result.get().getId();
     }
 
+    // inherited javadoc
     @Override
     public String fetchUsernameByUserId(Long userId) {
-        var getUserByIdQuery = new GetUserByIdQuery(userId);
-        var result = userQueryService.handle(getUserByIdQuery);
+        var getUserByUserIdQuery = new GetUserByIdQuery(userId);
+        var result = userQueryService.handle(getUserByUserIdQuery);
         if (result.isEmpty()) return Strings.EMPTY;
         return result.get().getUsername();
     }

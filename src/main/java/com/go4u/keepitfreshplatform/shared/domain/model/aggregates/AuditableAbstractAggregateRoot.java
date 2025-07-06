@@ -1,3 +1,4 @@
+
 package com.go4u.keepitfreshplatform.shared.domain.model.aggregates;
 
 import jakarta.persistence.*;
@@ -9,20 +10,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
-/**
- * Abstract class for aggregate roots that need auditing capabilities.
- * It extends AbstractAggregateRoot to support domain events.
- *
- * @param <T> the type of the aggregate root
- */
 
+@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
+public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> extends AbstractAggregateRoot<T> {
+
+    @Id
+    @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Getter
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP) // ✅ Esta es la clave
     @Column(nullable = false, updatable = false)
     private Date createdAt;
 
-
+    @Getter
     @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP) // ✅ También aquí
     @Column(nullable = false)
     private Date updatedAt;
-
-
+}

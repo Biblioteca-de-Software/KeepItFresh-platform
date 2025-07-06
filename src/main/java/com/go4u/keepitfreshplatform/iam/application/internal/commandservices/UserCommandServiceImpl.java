@@ -6,41 +6,48 @@ import com.go4u.keepitfreshplatform.iam.domain.model.aggregates.User;
 import com.go4u.keepitfreshplatform.iam.domain.model.commands.SignInCommand;
 import com.go4u.keepitfreshplatform.iam.domain.model.commands.SignUpCommand;
 import com.go4u.keepitfreshplatform.iam.domain.services.UserCommandService;
+
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.RoleRepository;
 import com.go4u.keepitfreshplatform.iam.infraestructure.persistence.jpa.repository.UserRepository;
+
+
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 @Service
 public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final HashingService hashingService;
     private final TokenService tokenService;
-    private final RoleRepository roleRepository;
 
     /**
-     * Constructor
-     * @param userRepository {@link UserRepository} instance
-     * @param hashingService {@link HashingService} instance
-     * @param tokenService {@link TokenService} instance
-     * @param roleRepository {@link RoleRepository} instance
+     * Constructor.
+     *
+     * @param userRepository the {@link UserRepository} user repository.
+     * @param roleRepository the {@link RoleRepository} role repository.
+     * @param hashingService the {@link HashingService} hashing service.
+     * @param tokenService the {@link TokenService} token service.
      */
-    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.hashingService = hashingService;
-        this.tokenService = tokenService;
-        this.roleRepository = roleRepository;
-    }
+ public UserCommandServiceImpl(UserRepository userRepository, RoleRepository roleRepository,HashingService hashingService, TokenService tokenService) {
+     this.userRepository = userRepository;
+     this.roleRepository = roleRepository;
+     this.hashingService = hashingService;
+     this.tokenService = tokenService;
 
+ }
     // inherited javadoc
     @Override
     public Optional<User> handle(SignUpCommand command) {
         if (userRepository.existsByUsername(command.username()))
             throw new RuntimeException("Username already exists");
-        var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName()).orElseThrow(() -> new RuntimeException("Role not found"))).toList();
+        var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName())
+                .orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
         var user = new User(command.username(), hashingService.encode(command.password()), roles);
         userRepository.save(user);
         return userRepository.findByUsername(command.username());
@@ -49,11 +56,14 @@ public class UserCommandServiceImpl implements UserCommandService {
     // inherited javadoc
     @Override
     public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
-        var user = userRepository.findByUsername(command.username());
-        if (user.isEmpty()) throw new RuntimeException("User not found");
-        var existingUser = user.get();
-        if(!hashingService.matches(command.password(), existingUser.getPassword())) throw new RuntimeException("Invalid password");
-        var token = tokenService.generateToken(existingUser.getUsername());
-        return Optional.of(ImmutablePair.of(existingUser, token));
+        var user = userRepository.findByUsername(command.username())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!hashingService.matches(command.password(), user.getPassword()))
+            throw new BadCredentialsException("Invalid password");
+
+        var token = tokenService.generateToken(user.getUsername());
+        return Optional.of(new ImmutablePair<>(user, token));
     }
+
 }

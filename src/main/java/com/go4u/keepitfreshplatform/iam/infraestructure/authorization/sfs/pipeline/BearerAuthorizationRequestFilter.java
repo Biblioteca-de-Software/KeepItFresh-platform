@@ -3,6 +3,7 @@ package com.go4u.keepitfreshplatform.iam.infraestructure.authorization.sfs.pipel
 import com.go4u.keepitfreshplatform.iam.infraestructure.authorization.sfs.model.UserDetailsImpl;
 import com.go4u.keepitfreshplatform.iam.infraestructure.authorization.sfs.model.UsernamePasswordAuthenticationTokenBuilder;
 import com.go4u.keepitfreshplatform.iam.infraestructure.token.jwt.BearerTokenService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

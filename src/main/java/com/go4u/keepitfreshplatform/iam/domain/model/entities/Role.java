@@ -1,28 +1,33 @@
 package com.go4u.keepitfreshplatform.iam.domain.model.entities;
 import com.go4u.keepitfreshplatform.iam.domain.model.valueobjects.Roles;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
+import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
+
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Role {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private Roles name;
 
     /**
      * Constructor
      * <p>
-     *     Creates a new role with the given name.
+     *  Creates a new role with the given name.
      * </p>
      * @param name The name of the role.
      */
@@ -31,18 +36,20 @@ public class Role {
     }
 
     /**
-     * Get Default Role
+     * getStringName
      * <p>
-     *     Returns the default role.
+     *  Returns the name of the role as a string.
      * </p>
-     * @return The default role.
+     * @return The name of the role as a string.
      */
-    public static Role getDefaultRole() { return new Role(Roles.ROLE_USER); }
+    public String getStringName() {
+        return name.name();
+    }
 
     /**
-     * To Role From Name
+     * toRoleFromName
      * <p>
-     *     Converts a role name to a role.
+     *  Converts a string to a role.
      * </p>
      * @param name The name of the role.
      * @return The role.
@@ -52,25 +59,28 @@ public class Role {
     }
 
     /**
-     * Validate Role Set
+     * getDefaultRole
      * <p>
-     *     Validates a set of roles. If the set is null or empty, the default role is returned.
+     *  Returns the default role.
      * </p>
-     * @param roles The set of roles.
-     * @return The set of roles.
+     * @return The default role (User Role).
      */
-    public static List<Role> validateRoleSet(List<Role> roles) {
-        return roles == null || roles.isEmpty() ? List.of(getDefaultRole()) : roles;
+    public static Role getDefaultRole() {
+        return new Role(Roles.ROLE_USER);
     }
 
     /**
-     * Get String Name
+     * validateRoleSet
      * <p>
-     *     Returns the name of the role as a string.
+     *  Validates a set of roles. If the set is null or empty, the default role is returned.
      * </p>
-     * @return The name of the role as a string.
+     * @param roles The set of roles to validate.
+     * @return The set of roles.
      */
-    public String getStringName() {
-        return name.name();
+    public static List<Role> validateRoleSet(List<Role> roles) {
+        if (Objects.isNull(roles) || roles.isEmpty()) {
+            return List.of(getDefaultRole());
+        }
+        return roles;
     }
 }

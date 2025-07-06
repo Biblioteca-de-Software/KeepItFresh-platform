@@ -6,8 +6,16 @@ import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
 
 import static io.github.encryptorcode.pluralize.Pluralize.pluralize;
 
+/**
+ * SnakeCase Physical Naming Strategy
+ * @summary
+ * This class is used to convert the table names and column names to snake case.
+ * It also pluralizes the table names.
+ * It implements the PhysicalNamingStrategy interface from Hibernate.
+ * @since 1.0
+ * @see PhysicalNamingStrategy
+ */
 public class SnakeCasePhysicalNamingStrategy implements PhysicalNamingStrategy {
-
     @Override
     public Identifier toPhysicalCatalogName(Identifier identifier, JdbcEnvironment jdbcEnvironment) {
         return this.toSnakeCase(identifier);
@@ -82,5 +90,4 @@ public class SnakeCasePhysicalNamingStrategy implements PhysicalNamingStrategy {
         final String newName = pluralize(identifier.getText());
         return Identifier.toIdentifier(newName);
     }
-
 }

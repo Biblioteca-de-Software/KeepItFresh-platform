@@ -15,18 +15,7 @@ import java.io.IOException;
 public class UnauthorizedRequestHandlerEntryPoint implements AuthenticationEntryPoint {
     private static final Logger LOGGER = LoggerFactory.getLogger(UnauthorizedRequestHandlerEntryPoint.class);
 
-    /**
-     * Handle unauthorized requests
-     * <p>
-     *     This method will handle unauthorized requests.
-     *     It will log the error message.
-     * </p>
-     * @param request {@link HttpServletRequest} Request
-     * @param response {@link HttpServletResponse} Response
-     * @param authenticationException {@link AuthenticationException} Authentication exception
-     * @throws IOException If an error occurs
-     * @throws ServletException If an error occurs
-     */
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
         LOGGER.error("Unauthorized request: {}", authenticationException.getMessage());
