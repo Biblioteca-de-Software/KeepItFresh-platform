@@ -1,13 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.5.0</version>
-        <relativePath/> <!-- necesario para heredar versiones -->
+        <relativePath/>
     </parent>
 
     <groupId>com.go4u</groupId>
@@ -43,14 +44,14 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Base de datos -->
+        <!-- MySQL (agregamos versión y quitamos "runtime" para resolver en IDE) -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
+            <version>8.0.33</version>
         </dependency>
 
-        <!-- OpenAPI (Swagger) -->
+        <!-- Swagger/OpenAPI -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -76,12 +77,14 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Otros -->
+        <!-- Pluralize -->
         <dependency>
             <groupId>io.github.encryptorcode</groupId>
             <artifactId>pluralize</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <!-- Stripe -->
         <dependency>
             <groupId>com.stripe</groupId>
             <artifactId>stripe-java</artifactId>
@@ -106,7 +109,7 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Plugin -->
+            <!-- Spring Boot plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -115,13 +118,13 @@
                 </configuration>
             </plugin>
 
-            <!-- Compilador con preview -->
+            <!-- Maven compiler plugin con preview -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>${java.version}</release>
                     <compilerArgs>
                         <arg>--enable-preview</arg>
                     </compilerArgs>
@@ -135,7 +138,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Soporte preview en tests -->
+            <!-- Test plugin con preview -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
