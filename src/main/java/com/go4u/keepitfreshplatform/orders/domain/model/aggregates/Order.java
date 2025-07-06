@@ -23,6 +23,7 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
 
     @NotNull
     @Getter
+    @AttributeOverride(name = "price", column = @Column(name = "price"))
     private Price total;
 
     @Embedded

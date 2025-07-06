@@ -26,11 +26,7 @@ public class OrderCommandServiceImpl implements OrderCommandService {
 
     @Override
     public Long handle(CreateOrderCommand command){
-        var order = new Order(
-                command.tableNumber(),
-                new Price(BigDecimal.ZERO),
-                new OrderSummary()
-        );
+        var order = new Order(command, new OrderSummary());
         try{
             orderRepository.save(order);
         } catch(Exception e){
