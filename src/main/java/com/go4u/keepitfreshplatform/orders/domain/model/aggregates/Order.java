@@ -19,10 +19,10 @@ import java.math.BigDecimal;
 public class Order extends AuditableAbstractAggregateRoot<Order> {
 
     @NotNull
+    @Column(name = "table_number")
     private int tableNumber;
 
     @NotNull
-    @Getter
     @AttributeOverride(name = "price", column = @Column(name = "price"))
     private Price total;
 
@@ -37,13 +37,14 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
 
     public Order(CreateOrderCommand command, OrderSummary orderSummary) {
         this.tableNumber = command.tableNumber();
-        this.total = new Price(BigDecimal.ZERO); // O el valor que corresponda
+        this.total = new Price(BigDecimal.ZERO);
         this.orderSummary = orderSummary;
     }
 
+    // ✅ Requerido por JPA: constructor sin argumentos, con valores por defecto
     public Order() {
         this.tableNumber = 0;
-        this.total = null;
+        this.total = new Price(BigDecimal.ZERO);
         this.orderSummary = new OrderSummary();
     }
 
@@ -54,6 +55,5 @@ public class Order extends AuditableAbstractAggregateRoot<Order> {
     public void setTotal(Price total) {
         this.total = total;
     }
-
 
 }
