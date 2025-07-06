@@ -15,7 +15,7 @@ RUN ./mvnw dependency:go-offline -B
 # Copiamos el resto del código fuente
 COPY src ./src
 
-# Compilamos con soporte para preview features
+# Compilamos con soporte para preview features (activado en pom.xml)
 RUN ./mvnw package -DskipTests -B
 
 # Etapa 2: Imagen de ejecución más liviana

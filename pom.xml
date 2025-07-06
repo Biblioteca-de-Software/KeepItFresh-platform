@@ -5,70 +5,73 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
-        <relativePath/> <!-- busca en el repositorio central -->
-    </parent>
-
     <groupId>com.go4u</groupId>
     <artifactId>keep-it-fresh-platform</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>keep-it-fresh-platform</name>
-    <description>Spring Boot backend using Java 21 with preview features</description>
+    <description>Spring Boot app using Java 21 preview features</description>
 
     <properties>
         <java.version>21</java.version>
+        <spring.boot.version>3.2.5</spring.boot.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot dependencies sin versión individual, gracias al parent -->
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
+        <!-- Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin de Spring Boot -->
+
+            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <jvmArguments>--enable-preview</jvmArguments>
-                </configuration>
+                <version>${spring.boot.version}</version>
             </plugin>
 
-            <!-- Plugin del compilador con soporte preview -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
                     <release>${java.version}</release>
                     <compilerArgs>
@@ -77,15 +80,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Plugin para pruebas (preview) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <argLine>--enable-preview</argLine>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+
 </project>
