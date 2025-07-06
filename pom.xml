@@ -5,48 +5,48 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/> <!-- busca en el repositorio central -->
+    </parent>
+
     <groupId>com.go4u</groupId>
     <artifactId>keep-it-fresh-platform</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>keep-it-fresh-platform</name>
-    <description>Spring Boot backend with Java 21 preview features</description>
+    <description>Spring Boot backend using Java 21 with preview features</description>
 
     <properties>
         <java.version>21</java.version>
-        <maven.compiler.release>21</maven.compiler.release>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starter -->
+        <!-- Spring Boot dependencies sin versión individual, gracias al parent -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Otros starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Security (si lo estás usando) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- Lombok (opcional) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
-        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -56,21 +56,19 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot plugin -->
+            <!-- Plugin de Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.go4u.keepitfreshplatform.KeepItFreshPlatformApplication</mainClass>
                     <jvmArguments>--enable-preview</jvmArguments>
                 </configuration>
             </plugin>
 
-            <!-- Compiler plugin con preview -->
+            <!-- Plugin del compilador con soporte preview -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
                 <configuration>
                     <release>${java.version}</release>
                     <compilerArgs>
@@ -79,7 +77,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Tests con preview -->
+            <!-- Plugin para pruebas (preview) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -90,5 +88,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
