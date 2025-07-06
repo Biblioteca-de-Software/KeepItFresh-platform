@@ -22,12 +22,13 @@ public class AuditableAbstractAggregateRoot<T extends AbstractAggregateRoot<T>> 
 
     @Getter
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP) // ✅ Esta es la clave
     @Column(nullable = false, updatable = false)
     private Date createdAt;
 
     @Getter
     @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP) // ✅ También aquí
     @Column(nullable = false)
     private Date updatedAt;
-
 }
